@@ -59,10 +59,11 @@ export default function Home() {
       pricing: [
         { label: "Without eyelashes", price: "₹1,600", description: "Complete party look with makeup, hairstyle, and dupatta draping" },
         { label: "With eyelashes", price: "₹1,700", description: "Enhanced look with premium eyelashes included" },
-        { label: "Eyelashes only (add-on)", price: "₹100", description: "Add premium eyelashes to any look" }
+        { label: "Eyelashes only (add-on)", price: "₹100", description: "Add premium eyelashes to any look" },
+        { label: "Contact Lenses (add-on)", price: "₹250", description: "High-quality contact lenses for a dramatic eye transformation" }
       ],
       includes: ["Professional Makeup Application", "Hairstyle", "Dupatta Draping"],
-      note: "Saree draping & Touch-up kit available at extra charge",
+      note: "Saree draping available at extra charge",
       image: "/party.jpg",
       featured: false
     },
@@ -116,7 +117,6 @@ export default function Home() {
         "Premium Eyelashes",
         "Contact Lenses",
         "Pre-Bridal Skincare Prep",
-        "Touch-up Kit",
         "All Jewelry & Accessory Placement"
       ],
       featured: true,
@@ -445,15 +445,11 @@ export default function Home() {
             <div className="grid md:grid-cols-2 gap-3 md:gap-6">
               <div className="flex justify-between items-center p-2 md:p-4 bg-amber-50/50 rounded-lg md:rounded-xl">
                 <span className="text-gray-700 font-medium text-[10px] md:text-base">Contact Lenses</span>
-                <span className="text-amber-600 font-bold text-sm md:text-xl">₹400</span>
+                <span className="text-amber-600 font-bold text-sm md:text-xl">₹250</span>
               </div>
               <div className="flex justify-between items-center p-2 md:p-4 bg-amber-50/50 rounded-lg md:rounded-xl">
                 <span className="text-gray-700 font-medium text-[10px] md:text-base">Saree Draping</span>
                 <span className="text-amber-600 font-bold text-sm md:text-xl">₹300</span>
-              </div>
-              <div className="flex justify-between items-center p-2 md:p-4 bg-amber-50/50 rounded-lg md:rounded-xl">
-                <span className="text-gray-700 font-medium text-[10px] md:text-base">Touch-up Kit</span>
-                <span className="text-amber-600 font-bold text-sm md:text-xl">₹200</span>
               </div>
               <div className="flex justify-between items-center p-2 md:p-4 bg-amber-50/50 rounded-lg md:rounded-xl">
                 <span className="text-gray-700 font-medium text-[10px] md:text-base">Floral Accessories</span>
