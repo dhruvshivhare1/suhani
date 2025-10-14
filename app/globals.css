@@ -74,3 +74,13 @@ body {
     backdrop-filter: blur(12px);
   }
 }
+
+/* Hide iOS Safari inline video play overlay on the hero background video */
+.hero-video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+.hero-video::-webkit-media-controls,
+.hero-video::-webkit-media-controls-enclosure {
+  display: none !important;
+}
