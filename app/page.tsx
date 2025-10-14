@@ -250,42 +250,17 @@ export default function Home() {
             muted
             loop
             playsInline
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
-            onLoadStart={() => {
-                const playVideo = () => {
-                  const videoElement = document.querySelector('video');
-                  if (videoElement) videoElement.play().catch(error => {
-                    console.log("Video autoplay failed:", error);
-                    setVideoLoaded(true); // Show even if autoplay fails
-                  });
-                };
-                // Play on load
-                playVideo();
-                // Play again when component becomes visible
-                const observer = new IntersectionObserver((entries) => {
-                  entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                      playVideo();
-                    }
-                  });
-                }, { threshold: 0.1 });
-                const videoElement = document.querySelector('video');
-                if (videoElement) observer.observe(videoElement);
-                return () => {
-                  if (videoElement) observer.unobserve(videoElement);
-                };
-            }}
-            onLoadedData={() => setVideoLoaded(true)}
+            controls={false}
+            disablePictureInPicture
+            controlsList="nodownload noplaybackrate noremoteplayback"
+            preload="auto"
+            className="hero-video absolute inset-0 w-full h-full object-cover pointer-events-none"
           >
             <source
-              src={
-                isMobile 
-                  ? window.innerWidth <= 360
-                    ? "https://res.cloudinary.com/dwoifav4o/video/upload/q_auto:eco,f_auto,w_360,c_scale/hero_mraobv.mp4"
-                    : "https://res.cloudinary.com/dwoifav4o/video/upload/q_auto:low,f_auto,w_480,c_scale/hero_mraobv.mp4"
-                  : "https://res.cloudinary.com/dwoifav4o/video/upload/q_auto:good,f_auto,w_1080,c_scale/hero_mraobv.mp4"
-              }
-              type="video/mp4" 
+              src={isMobile
+                ? "https://res.cloudinary.com/dwoifav4o/video/upload/q_auto:low,f_auto,w_360,c_scale/hero_mraobv.mp4"
+                : "https://res.cloudinary.com/dwoifav4o/video/upload/q_auto:good,f_auto,w_1080,c_scale/hero_mraobv.mp4"}
+              type="video/mp4"
             />
             Your browser does not support the video tag.
           </video>
