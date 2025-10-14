@@ -3,6 +3,26 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Sparkles, Phone, Mail, MapPin, Instagram, PlayCircle, ChevronRight, Award, Star, Check, X, MessageCircle, Send } from 'lucide-react';
+
+// Mobile detection utility
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+        window.innerWidth < 768
+      );
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  return isMobile;
+};
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -12,6 +32,8 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [selectedService, setSelectedService] = useState<string>('party');
   const [playingVideo, setPlayingVideo] = useState<number | null>(null);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const isMobile = useIsMobile();
 
   const handleWhatsAppClick = (service?: string) => {
     const phoneNumber = "916264530223";
@@ -222,32 +244,50 @@ export default function Home() {
           {/* white overlay for text readability */}
           <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/50 to-white/60 z-20"></div>
 
-          {/* Background video - using Cloudinary for optimized delivery */}
+          {/* Background video with mobile optimization */}
           <video
-            className="w-full h-full object-cover"
             autoPlay
             muted
             loop
             playsInline
-            preload="auto"
-            poster="/thumbnail.jpg"
-            aria-hidden="true"
-            webkit-playsinline="true"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
+            onLoadStart={() => {
+                const playVideo = () => {
+                  const videoElement = document.querySelector('video');
+                  if (videoElement) videoElement.play().catch(error => {
+                    console.log("Video autoplay failed:", error);
+                    setVideoLoaded(true); // Show even if autoplay fails
+                  });
+                };
+                // Play on load
+                playVideo();
+                // Play again when component becomes visible
+                const observer = new IntersectionObserver((entries) => {
+                  entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                      playVideo();
+                    }
+                  });
+                }, { threshold: 0.1 });
+                const videoElement = document.querySelector('video');
+                if (videoElement) observer.observe(videoElement);
+                return () => {
+                  if (videoElement) observer.unobserve(videoElement);
+                };
+            }}
+            onLoadedData={() => setVideoLoaded(true)}
           >
-            <source 
-              src="https://res.cloudinary.com/dwoifav4o/video/upload/v1760438421/hero_mraobv.mp4" 
+            <source
+              src={
+                isMobile 
+                  ? window.innerWidth <= 360
+                    ? "https://res.cloudinary.com/dwoifav4o/video/upload/q_auto:eco,f_auto,w_360,c_scale/hero_mraobv.mp4"
+                    : "https://res.cloudinary.com/dwoifav4o/video/upload/q_auto:low,f_auto,w_480,c_scale/hero_mraobv.mp4"
+                  : "https://res.cloudinary.com/dwoifav4o/video/upload/q_auto:good,f_auto,w_1080,c_scale/hero_mraobv.mp4"
+              }
               type="video/mp4" 
             />
-            <source 
-              src="https://res.cloudinary.com/dwoifav4o/video/upload/v1760438421/hero_mraobv.webm" 
-              type="video/webm" 
-            />
-            {/* Fallback image */}
-            <img
-              src="/thumbnail.jpg"
-              alt="Hero"
-              className="w-full h-full object-cover opacity-40"
-            />
+            Your browser does not support the video tag.
           </video>
 
           {/* subtle amber wash */}
