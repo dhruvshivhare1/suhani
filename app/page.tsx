@@ -222,19 +222,29 @@ export default function Home() {
           {/* white overlay for text readability */}
           <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/50 to-white/60 z-20"></div>
 
-          {/* Background video - autoplay, muted, loop, playsInline */}
+          {/* Background video - using Cloudinary for optimized delivery */}
           <video
             className="w-full h-full object-cover"
             autoPlay
             muted
             loop
             playsInline
+            preload="auto"
+            poster="/thumbnail.jpg"
             aria-hidden="true"
+            webkit-playsinline="true"
           >
-            <source src="/hero.mp4" type="video/mp4" />
+            <source 
+              src="https://res.cloudinary.com/dwoifav4o/video/upload/v1760438421/hero_mraobv.mp4" 
+              type="video/mp4" 
+            />
+            <source 
+              src="https://res.cloudinary.com/dwoifav4o/video/upload/v1760438421/hero_mraobv.webm" 
+              type="video/webm" 
+            />
             {/* Fallback image */}
             <img
-              src="https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=1920"
+              src="/thumbnail.jpg"
               alt="Hero"
               className="w-full h-full object-cover opacity-40"
             />
