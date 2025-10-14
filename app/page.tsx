@@ -59,8 +59,7 @@ export default function Home() {
       pricing: [
         { label: "Without eyelashes", price: "₹1,600", description: "Complete party look with makeup, hairstyle, and dupatta draping" },
         { label: "With eyelashes", price: "₹1,700", description: "Enhanced look with premium eyelashes included" },
-        { label: "Eyelashes only (add-on)", price: "₹100", description: "Add premium eyelashes to any look" },
-        { label: "Contact Lenses (add-on)", price: "₹250", description: "High-quality contact lenses for a dramatic eye transformation" }
+        { label: "Eyelashes only (add-on)", price: "₹100", description: "Add premium eyelashes to any look" }
       ],
       includes: ["Professional Makeup Application", "Hairstyle", "Dupatta Draping"],
       note: "Saree draping available at extra charge",
@@ -72,7 +71,8 @@ export default function Home() {
       title: "Haldi / Mehendi Makeup",
       description: "Bright, cheerful makeup perfect for pre-wedding ceremonies. Designed to look fresh and vibrant in natural daylight and traditional attire.",
       pricing: [
-        { label: "Complete Package", price: "₹3,000", description: "Everything you need for a perfect Haldi/Mehendi look" }
+        { label: "Complete Package", price: "₹3,000", description: "Everything you need for a perfect Haldi/Mehendi look" },
+        { label: "Contact Lenses (add-on)", price: "₹250", description: "High-quality contact lenses for a dramatic eye transformation" }
       ],
       includes: ["HD Makeup Application", "Traditional Hairstyle", "Premium Eyelashes", "Dupatta Draping"],
       image: "/haldi.PNG",
