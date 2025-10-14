@@ -86,7 +86,7 @@ export default function Home() {
       pricing: [
         { label: "Complete Package", price: "₹4,000", description: "Full sangeet glam with long-lasting formula" }
       ],
-      includes: ["HD Makeup Application", "Glamorous Hairstyle", "Premium Eyelashes", "Dupatta Draping", "Setting Spray for Long Wear"],
+      includes: ["HD Makeup Application", "Glamorous Hairstyle", "Premium Eyelashes", "Dupatta Draping"],
       image: "/sangeet1.png",
       featured: false,
       note: ""
@@ -98,7 +98,7 @@ export default function Home() {
       pricing: [
         { label: "Complete Package", price: "₹6,000", description: "Premium engagement look with all accessories" }
       ],
-      includes: ["HD Professional Makeup", "Elegant Hairstyle", "Premium Eyelashes", "Dupatta Draping", "Jewelry Placement Assistance"],
+      includes: ["HD Professional Makeup", "Elegant Hairstyle", "Premium Eyelashes", "Dupatta Draping"],
       image: "/engagement.png",
       featured: false,
       note: ""
@@ -115,9 +115,7 @@ export default function Home() {
         "Traditional Bridal Hairstyle",
         "Bridal Dupatta Setting",
         "Premium Eyelashes",
-        "Contact Lenses",
-        "Pre-Bridal Skincare Prep",
-        "All Jewelry & Accessory Placement"
+        "Contact Lenses"
       ],
       featured: true,
       image: "/bridal3.png",
