@@ -253,6 +253,7 @@ export default function Home() {
             controls={false}
             disablePictureInPicture
             controlsList="nodownload noplaybackrate noremoteplayback"
+<<<<<<< HEAD
             preload="metadata"
             fetchPriority="high"
             className="hero-video absolute inset-0 w-full h-full object-cover pointer-events-none"
@@ -266,6 +267,10 @@ export default function Home() {
               }
             }}
             onCanPlay={() => setVideoLoaded(true)}
+=======
+            preload="auto"
+            className="hero-video absolute inset-0 w-full h-full object-cover pointer-events-none"
+>>>>>>> aabef5a3a78aa74f4503a59c78abd7d841a6f068
           >
             <source
               src={isMobile

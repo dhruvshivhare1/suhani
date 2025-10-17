@@ -5,12 +5,12 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Suhani - Professional Makeup Artist in Morena & Gwalior',
-  description: 'Transform your look with Suhani, a certified professional makeup artist in Morena & Gwalior. Specializing in bridal makeup, party makeup, and HD makeup services. Book your appointment for stunning, camera-ready looks.',
-  keywords: 'makeup artist, bridal makeup, professional makeup, HD makeup, party makeup, Morena makeup artist, Gwalior makeup artist, wedding makeup, engagement makeup, best makeup artist',
+  title: 'Suhani Shivhare - Professional Makeup Artist in Morena & Gwalior',
+  description: 'Transform your look with Suhani Shivhare, a certified professional makeup artist in Morena & Gwalior. Specializing in bridal makeup, party makeup, and HD makeup services. Book your appointment for stunning, camera-ready looks.',
+  keywords: 'makeup artist, bridal makeup, professional makeup, HD makeup, party makeup, Morena makeup artist, Gwalior makeup artist, wedding makeup, engagement makeup, best makeup artist, Suhani Shivhare',
   robots: 'index, follow',
   openGraph: {
-    title: 'Suhani - Professional Makeup Artist in Morena & Gwalior',
+    title: 'Suhani Shivhare - Professional Makeup Artist in Morena & Gwalior',
     description: 'Transform your look with professional makeup services. Specializing in bridal, party, and HD makeup.',
     type: 'website',
     locale: 'en_IN',
@@ -19,19 +19,19 @@ export const metadata: Metadata = {
         url: '/bridal3.png',
         width: 1200,
         height: 630,
-        alt: 'Suhani - Professional Makeup Artist'
+        alt: 'Suhani Shivhare - Professional Makeup Artist'
       }
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Suhani - Professional Makeup Artist',
+    title: 'Suhani Shivhare - Professional Makeup Artist',
     description: 'Professional makeup services in Morena & Gwalior',
     images: ['/bridal3.png'],
   },
-  authors: [{ name: 'Suhani' }],
-  creator: 'Suhani',
-  publisher: 'Suhani',
+  authors: [{ name: 'Suhani Shivhare' }],
+  creator: 'Suhani Shivhare',
+  publisher: 'Suhani Shivhare',
   formatDetection: {
     telephone: true,
     email: true
