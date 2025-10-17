@@ -3,6 +3,26 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Sparkles, Phone, Mail, MapPin, Instagram, PlayCircle, ChevronRight, Award, Star, Check, X, MessageCircle, Send } from 'lucide-react';
+
+// Mobile detection utility
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+        window.innerWidth < 768
+      );
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  return isMobile;
+};
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -12,6 +32,8 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [selectedService, setSelectedService] = useState<string>('party');
   const [playingVideo, setPlayingVideo] = useState<number | null>(null);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const isMobile = useIsMobile();
 
   const handleWhatsAppClick = (service?: string) => {
     const phoneNumber = "916264530223";
@@ -62,7 +84,7 @@ export default function Home() {
         { label: "Eyelashes only (add-on)", price: "₹100", description: "Add premium eyelashes to any look" }
       ],
       includes: ["Professional Makeup Application", "Hairstyle", "Dupatta Draping"],
-      note: "Saree draping & Touch-up kit available at extra charge",
+      note: "Saree draping available at extra charge",
       image: "/party.jpg",
       featured: false
     },
@@ -71,7 +93,8 @@ export default function Home() {
       title: "Haldi / Mehendi Makeup",
       description: "Bright, cheerful makeup perfect for pre-wedding ceremonies. Designed to look fresh and vibrant in natural daylight and traditional attire.",
       pricing: [
-        { label: "Complete Package", price: "₹3,000", description: "Everything you need for a perfect Haldi/Mehendi look" }
+        { label: "Complete Package", price: "₹3,000", description: "Everything you need for a perfect Haldi/Mehendi look" },
+        { label: "Contact Lenses (add-on)", price: "₹250", description: "High-quality contact lenses for a dramatic eye transformation" }
       ],
       includes: ["HD Makeup Application", "Traditional Hairstyle", "Premium Eyelashes", "Dupatta Draping"],
       image: "/haldi.PNG",
@@ -85,7 +108,7 @@ export default function Home() {
       pricing: [
         { label: "Complete Package", price: "₹4,000", description: "Full sangeet glam with long-lasting formula" }
       ],
-      includes: ["HD Makeup Application", "Glamorous Hairstyle", "Premium Eyelashes", "Dupatta Draping", "Setting Spray for Long Wear"],
+      includes: ["HD Makeup Application", "Glamorous Hairstyle", "Premium Eyelashes", "Dupatta Draping"],
       image: "/sangeet1.png",
       featured: false,
       note: ""
@@ -97,7 +120,7 @@ export default function Home() {
       pricing: [
         { label: "Complete Package", price: "₹6,000", description: "Premium engagement look with all accessories" }
       ],
-      includes: ["HD Professional Makeup", "Elegant Hairstyle", "Premium Eyelashes", "Dupatta Draping", "Jewelry Placement Assistance"],
+      includes: ["HD Professional Makeup", "Elegant Hairstyle", "Premium Eyelashes", "Dupatta Draping"],
       image: "/engagement.png",
       featured: false,
       note: ""
@@ -114,10 +137,7 @@ export default function Home() {
         "Traditional Bridal Hairstyle",
         "Bridal Dupatta Setting",
         "Premium Eyelashes",
-        "Contact Lenses",
-        "Pre-Bridal Skincare Prep",
-        "Touch-up Kit",
-        "All Jewelry & Accessory Placement"
+        "Contact Lenses"
       ],
       featured: true,
       image: "/bridal3.png",
@@ -224,22 +244,36 @@ export default function Home() {
           {/* white overlay for text readability */}
           <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/50 to-white/60 z-20"></div>
 
-          {/* Background video - autoplay, muted, loop, playsInline */}
+          {/* Background video with mobile optimization */}
           <video
-            className="w-full h-full object-cover"
             autoPlay
             muted
             loop
             playsInline
-            aria-hidden="true"
+            controls={false}
+            disablePictureInPicture
+            controlsList="nodownload noplaybackrate noremoteplayback"
+            preload="metadata"
+            fetchPriority="high"
+            className="hero-video absolute inset-0 w-full h-full object-cover pointer-events-none"
+            onLoadStart={() => {
+              const video = document.querySelector('.hero-video') as HTMLVideoElement;
+              if (video) {
+                video.play().catch(() => {
+                  // Fallback for autoplay failure
+                  setVideoLoaded(true);
+                });
+              }
+            }}
+            onCanPlay={() => setVideoLoaded(true)}
           >
-            <source src="/hero.mp4" type="video/mp4" />
-            {/* Fallback image */}
-            <img
-              src="https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=1920"
-              alt="Hero"
-              className="w-full h-full object-cover opacity-40"
+            <source
+              src={isMobile
+                ? "https://res.cloudinary.com/dwoifav4o/video/upload/q_auto:low,f_auto,w_360,c_scale/hero_mraobv.mp4"
+                : "https://res.cloudinary.com/dwoifav4o/video/upload/q_auto:good,f_auto,w_1080,c_scale/hero_mraobv.mp4"}
+              type="video/mp4"
             />
+            Your browser does not support the video tag.
           </video>
 
           {/* subtle amber wash */}
@@ -445,15 +479,11 @@ export default function Home() {
             <div className="grid md:grid-cols-2 gap-3 md:gap-6">
               <div className="flex justify-between items-center p-2 md:p-4 bg-amber-50/50 rounded-lg md:rounded-xl">
                 <span className="text-gray-700 font-medium text-[10px] md:text-base">Contact Lenses</span>
-                <span className="text-amber-600 font-bold text-sm md:text-xl">₹400</span>
+                <span className="text-amber-600 font-bold text-sm md:text-xl">₹250</span>
               </div>
               <div className="flex justify-between items-center p-2 md:p-4 bg-amber-50/50 rounded-lg md:rounded-xl">
                 <span className="text-gray-700 font-medium text-[10px] md:text-base">Saree Draping</span>
                 <span className="text-amber-600 font-bold text-sm md:text-xl">₹300</span>
-              </div>
-              <div className="flex justify-between items-center p-2 md:p-4 bg-amber-50/50 rounded-lg md:rounded-xl">
-                <span className="text-gray-700 font-medium text-[10px] md:text-base">Touch-up Kit</span>
-                <span className="text-amber-600 font-bold text-sm md:text-xl">₹200</span>
               </div>
               <div className="flex justify-between items-center p-2 md:p-4 bg-amber-50/50 rounded-lg md:rounded-xl">
                 <span className="text-gray-700 font-medium text-[10px] md:text-base">Floral Accessories</span>
@@ -559,11 +589,16 @@ export default function Home() {
                     <video
                       id={`reel-${idx}`}
                       src={reel.video}
-                      preload="metadata"
+                      preload="none"
+                      loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       playsInline
                       muted
                       loop
+                      onMouseEnter={(e) => {
+                        const video = e.target as HTMLVideoElement;
+                        video.preload = "metadata";
+                      }}
                     />
                     <div className={`absolute inset-0 bg-gradient-to-t from-amber-900/20 via-transparent to-transparent flex items-center justify-center transition-opacity duration-300 ${playingVideo === idx ? 'opacity-0' : 'group-hover:opacity-0'}`}>
                       <div className="w-12 h-12 md:w-20 md:h-20 rounded-full bg-transparent flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -589,13 +624,18 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-3 md:gap-6 mb-8 md:mb-16">
-            <div className="p-4 md:p-8 rounded-xl md:rounded-3xl bg-white border md:border-2 border-amber-200/50 hover:border-amber-400 hover:shadow-xl transition-all">
+            <a 
+              href="https://wa.me/916264530223"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-4 md:p-8 rounded-xl md:rounded-3xl bg-white border md:border-2 border-amber-200/50 hover:border-amber-400 hover:shadow-xl transition-all"
+            >
               <div className="w-8 h-8 md:w-14 md:h-14 rounded-full bg-amber-100 flex items-center justify-center mb-2 md:mb-5 border md:border-2 border-amber-300">
                 <Phone className="w-4 h-4 md:w-7 md:h-7 text-amber-600" />
               </div>
               <h3 className="text-sm md:text-xl font-serif mb-1 md:mb-2 text-gray-800">Phone</h3>
-              <p className="text-gray-600 text-[10px] md:text-base">Contact for bookings</p>
-            </div>
+              <p className="text-gray-600 text-[10px] md:text-base">+91 6264530223</p>
+            </a>
 
             <div className="p-4 md:p-8 rounded-xl md:rounded-3xl bg-white border md:border-2 border-amber-200/50 hover:border-amber-400 hover:shadow-xl transition-all">
               <div className="w-8 h-8 md:w-14 md:h-14 rounded-full bg-amber-100 flex items-center justify-center mb-2 md:mb-5 border md:border-2 border-amber-300">
@@ -605,21 +645,31 @@ export default function Home() {
               <p className="text-gray-600 text-[10px] md:text-base">Morena, Gwalior & Outstation</p>
             </div>
 
-            <div className="p-4 md:p-8 rounded-xl md:rounded-3xl bg-white border md:border-2 border-amber-200/50 hover:border-amber-400 hover:shadow-xl transition-all">
+            <a 
+              href="mailto:makeoverbysuhani@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-4 md:p-8 rounded-xl md:rounded-3xl bg-white border md:border-2 border-amber-200/50 hover:border-amber-400 hover:shadow-xl transition-all"
+            >
               <div className="w-8 h-8 md:w-14 md:h-14 rounded-full bg-amber-100 flex items-center justify-center mb-2 md:mb-5 border md:border-2 border-amber-300">
                 <Mail className="w-4 h-4 md:w-7 md:h-7 text-amber-600" />
               </div>
               <h3 className="text-sm md:text-xl font-serif mb-1 md:mb-2 text-gray-800">Email</h3>
-              <p className="text-gray-600 text-[10px] md:text-base">Get in touch via email</p>
-            </div>
+              <p className="text-gray-600 text-[10px] md:text-base">makeoverbysuhani@gmail.com</p>
+            </a>
 
-            <div className="p-4 md:p-8 rounded-xl md:rounded-3xl bg-white border md:border-2 border-amber-200/50 hover:border-amber-400 hover:shadow-xl transition-all">
+            <a 
+              href="https://www.instagram.com/suhanishivhare_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-4 md:p-8 rounded-xl md:rounded-3xl bg-white border md:border-2 border-amber-200/50 hover:border-amber-400 hover:shadow-xl transition-all"
+            >
               <div className="w-8 h-8 md:w-14 md:h-14 rounded-full bg-amber-100 flex items-center justify-center mb-2 md:mb-5 border md:border-2 border-amber-300">
                 <Instagram className="w-4 h-4 md:w-7 md:h-7 text-amber-600" />
               </div>
-              <h3 className="text-sm md:text-xl font-serif mb-1 md:mb-2 text-gray-800">Social Media</h3>
-              <p className="text-gray-600 text-[10px] md:text-base">Follow for latest work</p>
-            </div>
+              <h3 className="text-sm md:text-xl font-serif mb-1 md:mb-2 text-gray-800">Instagram</h3>
+              <p className="text-gray-600 text-[10px] md:text-base">@suhanishivhare_</p>
+            </a>
           </div>
 
           <div className="p-4 md:p-10 rounded-xl md:rounded-3xl border md:border-2 border-amber-300 bg-gradient-to-br from-amber-50 to-white backdrop-blur-sm shadow-xl">
