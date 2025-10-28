@@ -28,7 +28,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export default function Home() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'photos' | 'reels'>('photos');
+  const [activeTab, setActiveTab] = useState<'photos' | 'reels'>('reels');
   const [scrolled, setScrolled] = useState(false);
   const [selectedService, setSelectedService] = useState<string>('party');
   const [playingVideo, setPlayingVideo] = useState<number | null>(null);
