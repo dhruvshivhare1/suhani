@@ -242,44 +242,35 @@ export default function Home() {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           {/* white overlay for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/50 to-white/60 z-20"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/70 to-white/80 z-20"></div>
 
-          {/* Background video with mobile optimization */}
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            controls={false}
-            disablePictureInPicture
-            controlsList="nodownload noplaybackrate noremoteplayback"
-<<<<<<< HEAD
-            preload="metadata"
-            fetchPriority="high"
-            className="hero-video absolute inset-0 w-full h-full object-cover pointer-events-none"
-            onLoadStart={() => {
-              const video = document.querySelector('.hero-video') as HTMLVideoElement;
-              if (video) {
-                video.play().catch(() => {
-                  // Fallback for autoplay failure
-                  setVideoLoaded(true);
-                });
-              }
-            }}
-            onCanPlay={() => setVideoLoaded(true)}
-=======
-            preload="auto"
-            className="hero-video absolute inset-0 w-full h-full object-cover pointer-events-none"
->>>>>>> aabef5a3a78aa74f4503a59c78abd7d841a6f068
-          >
-            <source
-              src={isMobile
-                ? "https://res.cloudinary.com/dwoifav4o/video/upload/q_auto:low,f_auto,w_360,c_scale/hero_mraobv.mp4"
-                : "https://res.cloudinary.com/dwoifav4o/video/upload/q_auto:good,f_auto,w_1080,c_scale/hero_mraobv.mp4"}
-              type="video/mp4"
+          {/* Background video for desktop/laptop view */}
+          {!isMobile && (
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              controls={false}
+              disablePictureInPicture
+              controlsList="nodownload noplaybackrate noremoteplayback"
+              className="w-full h-full object-cover">
+              <source
+                src="https://res.cloudinary.com/dwoifav4o/video/upload/q_auto:good,f_auto,w_1080,c_scale/hero_mraobv.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          )}
+
+          {/* Background image for mobile view */}
+          {isMobile && (
+            <img
+              src="https://res.cloudinary.com/dwoifav4o/image/upload/v1761682928/WhatsApp_Image_2025-10-28_at_22.12.43_ff5ec461_tkdkal.jpg"
+              alt="Suhani Makeup Artist"
+              className="w-full h-full object-cover"
             />
-            Your browser does not support the video tag.
-          </video>
+          )}
 
           {/* subtle amber wash */}
           <div className="absolute inset-0 bg-gradient-to-r from-amber-100/10 via-transparent to-amber-100/10 z-30"></div>
@@ -502,6 +493,10 @@ export default function Home() {
                 <span className="text-gray-700 font-medium text-[10px] md:text-base">Gwalior Travel</span>
                 <span className="text-amber-600 font-bold text-sm md:text-xl">₹800</span>
               </div>
+              <div className="flex justify-between items-center p-2 md:p-4 bg-amber-50/50 rounded-lg md:rounded-xl">
+                <span className="text-gray-700 font-medium text-[10px] md:text-base">Hair Extensions (includes styling & blending)</span>
+                <span className="text-amber-600 font-bold text-sm md:text-xl">₹500</span>
+              </div>
             </div>
           </div>
         </div>
@@ -595,7 +590,6 @@ export default function Home() {
                       id={`reel-${idx}`}
                       src={reel.video}
                       preload="none"
-                      loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       playsInline
                       muted
