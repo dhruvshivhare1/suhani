@@ -70,7 +70,7 @@ export default function Home() {
         "Eyelashes",
         "Dupatta Draping"
       ],
-      image: "/glam.JPG",
+      image: "https://res.cloudinary.com/dmlfywroh/image/upload/q_auto,f_auto,w_800,c_scale/v1761688349/glam_mzjl9i.jpg",
       featured: true,
       note: ""
     },
@@ -85,7 +85,7 @@ export default function Home() {
       ],
       includes: ["Professional Makeup Application", "Hairstyle", "Dupatta Draping"],
       note: "Saree draping available at extra charge",
-      image: "/party.jpg",
+      image: "https://res.cloudinary.com/dmlfywroh/image/upload/q_auto,f_auto,w_800,c_scale/v1761688349/party_b0vw5v.jpg",
       featured: false
     },
     haldi: {
@@ -97,7 +97,7 @@ export default function Home() {
         { label: "Contact Lenses (add-on)", price: "₹250", description: "High-quality contact lenses for a dramatic eye transformation" }
       ],
       includes: ["HD Makeup Application", "Traditional Hairstyle", "Premium Eyelashes", "Dupatta Draping"],
-      image: "/haldi.PNG",
+      image: "https://res.cloudinary.com/dmlfywroh/image/upload/q_auto,f_auto,w_800,c_scale/v1761688350/haldi_fknijh.png",
       featured: false,
       note: ""
     },
@@ -109,7 +109,7 @@ export default function Home() {
         { label: "Complete Package", price: "₹4,000", description: "Full sangeet glam with long-lasting formula" }
       ],
       includes: ["HD Makeup Application", "Glamorous Hairstyle", "Premium Eyelashes", "Dupatta Draping"],
-      image: "/sangeet1.png",
+      image: "https://res.cloudinary.com/dmlfywroh/image/upload/q_auto,f_auto,w_800,c_scale/v1761689013/sangeet_g4yv6x.png",
       featured: false,
       note: ""
     },
@@ -121,7 +121,7 @@ export default function Home() {
         { label: "Complete Package", price: "₹6,000", description: "Premium engagement look with all accessories" }
       ],
       includes: ["HD Professional Makeup", "Elegant Hairstyle", "Premium Eyelashes", "Dupatta Draping"],
-      image: "/engagement.png",
+      image: "https://res.cloudinary.com/dmlfywroh/image/upload/q_auto,f_auto,w_800,c_scale/v1761688351/engagement_gzisdh.png",
       featured: false,
       note: ""
     },
@@ -140,7 +140,7 @@ export default function Home() {
         "Contact Lenses"
       ],
       featured: true,
-      image: "/bridal3.png",
+      image: "https://res.cloudinary.com/dmlfywroh/image/upload/q_auto,f_auto,w_800,c_scale/v1761689014/bridal1_rrgpjn.png",
       note: ""
     },
     reception: {
@@ -151,7 +151,7 @@ export default function Home() {
         { label: "Complete Package", price: "₹4,000", description: "Full reception glam look" }
       ],
       includes: ["HD Makeup Application", "Modern Hairstyle", "Premium Eyelashes", "Dupatta Draping"],
-      image: "/reception.png",
+      image: "https://res.cloudinary.com/dmlfywroh/image/upload/q_auto,f_auto,w_800,c_scale/v1761688658/reception_naq4jy.png",
       featured: false,
       note: ""
     }
@@ -362,10 +362,17 @@ export default function Home() {
                 <div className="grid lg:grid-cols-2 gap-6 md:gap-16 items-start max-w-6xl mx-auto">
                   <div className="relative rounded-xl md:rounded-3xl overflow-hidden group shadow-2xl">
                     <div className="aspect-[3/4]">
-                      <img
+                      <Image
                         src={service.image}
                         alt={service.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        fill
+                        priority={service.featured}
+                        loading={service.featured ? "eager" : "lazy"}
+                        className="object-cover group-hover:scale-105 transition-transform duration-700"
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                        quality={90}
+                        placeholder="blur"
+                        blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
                       />
                     </div>
                     <div className="absolute inset-0 bg-gradient-to-t from-amber-900/30 via-transparent to-transparent"></div>
@@ -528,12 +535,12 @@ export default function Home() {
           {activeTab === 'photos' ? (
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6">
               {[
-                '/bridal3.png',
-                '/glam.JPG',
-                '/engagement.png',
-                '/party.jpg',
-                '/reception.png',
-                '/sangeet1.png'
+                'https://res.cloudinary.com/dmlfywroh/image/upload/q_auto,f_auto,w_600,c_scale/v1761689014/bridal1_rrgpjn.png',
+                'https://res.cloudinary.com/dmlfywroh/image/upload/q_auto,f_auto,w_600,c_scale/v1761688349/glam_mzjl9i.jpg',
+                'https://res.cloudinary.com/dmlfywroh/image/upload/q_auto,f_auto,w_600,c_scale/v1761688351/engagement_gzisdh.png',
+                'https://res.cloudinary.com/dmlfywroh/image/upload/q_auto,f_auto,w_600,c_scale/v1761688349/party_b0vw5v.jpg',
+                'https://res.cloudinary.com/dmlfywroh/image/upload/q_auto,f_auto,w_600,c_scale/v1761688658/reception_naq4jy.png',
+                'https://res.cloudinary.com/dmlfywroh/image/upload/q_auto,f_auto,w_600,c_scale/v1761689013/sangeet_g4yv6x.png'
               ].map((img, idx) => (
                 <div
                   key={idx}
@@ -544,10 +551,13 @@ export default function Home() {
                     src={img}
                     alt={`Gallery ${idx + 1}`}
                     fill
-                    priority={idx < 4}
+                    priority={idx < 3}
+                    loading={idx < 3 ? "eager" : "lazy"}
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
-                    sizes="(max-width: 768px) 50vw, 33vw"
+                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     quality={85}
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-amber-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
                     <Sparkles className="w-6 h-6 md:w-10 md:h-10 text-white drop-shadow-lg" />
