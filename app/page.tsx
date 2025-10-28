@@ -208,10 +208,10 @@ export default function Home() {
   ];
 
   const reels = [
-    { video: "/r12.mp4", title: "Bridal Transformation" },
-    { video: "/r13.mp4", title: "Party Glam" },
-    { video: "/r14.mp4", title: "Engagement Look" },
-    { video: "/r15.mp4", title: "Mehendi Magic" }
+    { video: "https://res.cloudinary.com/dwoifav4o/video/upload/v1761686749/r12_uarolx.mp4", title: "Bridal Transformation" },
+    { video: "https://res.cloudinary.com/dwoifav4o/video/upload/v1761686752/r13_i1c5wf.mp4", title: "Party Glam" },
+    { video: "https://res.cloudinary.com/dwoifav4o/video/upload/v1761686765/r14_kanhwd.mp4", title: "Engagement Look" },
+    { video: "https://res.cloudinary.com/dwoifav4o/video/upload/v1761686765/r15_aia9oj.mp4", title: "Mehendi Magic" }
   ];
 
   const currentService = servicesData[selectedService as keyof typeof servicesData];
@@ -556,7 +556,7 @@ export default function Home() {
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
               {reels.map((reel, idx) => (
                 <div 
                   key={idx} 
@@ -585,19 +585,17 @@ export default function Home() {
                     }
                   }}
                 >
-                  <div className="aspect-[9/16] overflow-hidden rounded-lg md:rounded-2xl relative shadow-lg">
+                  <div className="aspect-[9/16] overflow-hidden rounded-xl md:rounded-3xl relative shadow-2xl">
                     <video
                       id={`reel-${idx}`}
                       src={reel.video}
-                      preload="none"
+                      preload="metadata"
+                      poster={`${reel.video.replace('.mp4', '.jpg')}`}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       playsInline
                       muted
                       loop
-                      onMouseEnter={(e) => {
-                        const video = e.target as HTMLVideoElement;
-                        video.preload = "metadata";
-                      }}
+                      onLoadStart={() => setVideoLoaded(true)}
                     />
                     <div className={`absolute inset-0 bg-gradient-to-t from-amber-900/20 via-transparent to-transparent flex items-center justify-center transition-opacity duration-300 ${playingVideo === idx ? 'opacity-0' : 'group-hover:opacity-0'}`}>
                       <div className="w-12 h-12 md:w-20 md:h-20 rounded-full bg-transparent flex items-center justify-center group-hover:scale-110 transition-transform">
