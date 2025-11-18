@@ -130,7 +130,7 @@ export default function Home() {
       title: "Bridal Makeup",
       description: "The ultimate bridal experience with HD makeup that looks flawless in person and photographs beautifully. Every bride deserves to look and feel exceptional.",
       pricing: [
-        { label: "HD Bridal Package", price: "₹12,000", description: "Complete bridal transformation with premium products and techniques" }
+        { label: "HD Bridal Package", price: "₹15,000", description: "Complete bridal transformation with premium products and techniques" }
       ],
       includes: [
         "HD Bridal Makeup (Camera Ready)",
