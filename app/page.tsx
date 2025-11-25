@@ -79,8 +79,8 @@ export default function Home() {
       title: "Party Makeup",
       description: "Look stunning at any party or social gathering with our glamorous party makeup. Perfect for birthdays, cocktail parties, and special celebrations.",
       pricing: [
-        { label: "Without eyelashes", price: "₹1,600", description: "Complete party look with makeup, hairstyle, and dupatta draping" },
-        { label: "With eyelashes", price: "₹1,700", description: "Enhanced look with premium eyelashes included" },
+        { label: "Without eyelashes", price: "₹1,700", description: "Complete party look with makeup, hairstyle, and dupatta draping" },
+        { label: "With eyelashes", price: "₹1,800", description: "Enhanced look with premium eyelashes included" },
         { label: "Eyelashes only (add-on)", price: "₹100", description: "Add premium eyelashes to any look" }
       ],
       includes: ["Professional Makeup Application", "Hairstyle", "Dupatta Draping"],
